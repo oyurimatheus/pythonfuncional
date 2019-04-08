@@ -9,8 +9,6 @@ OPÇÕES
 2 - Gastos mais frequentes
 3 - Total de gastos de uma categoria
 4 - Lista de gastos de uma categoria
-5 - Maiores gastos
-6 - Menores gastos
 0 - Sair do programa
 '''
 
@@ -41,19 +39,6 @@ OPÇÕES
             print(f'Os gastos da categoria {categoria} foram:')
             for gasto in gastos_da_categoria:
                 print(f'\t{gasto}')
-
-        elif opcao == 5:
-            maiores_gastos = gerenciador_de_gastos.maiores_gastos(gastos)
-            print('Os maiores gastos foram:')
-            for gasto in maiores_gastos:
-                print(f'{gasto[0]} - R${gasto[1]}')
-
-        elif opcao == 6:
-            menores_gastos = gerenciador_de_gastos.menores_gastos(gastos)
-            print('Os menores gastos foram:')
-            for gasto in menores_gastos:
-                print(f'{gasto[0]} - R${gasto[1]}')
-
         else:
             break
 
