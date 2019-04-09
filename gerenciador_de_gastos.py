@@ -23,7 +23,7 @@ def total_de_gastos(gastos):
 
 
 def categorias_mais_frequentes(gastos):
-    categorias = map(lambda gasto: gasto[0], gastos)
+    categorias = map(lambda gasto: gasto.categoria, gastos)
     contador = Counter(categorias)
 
     categoria_mais_frequente = contador.most_common(n=1)
@@ -42,7 +42,7 @@ def gastos_da_categoria(categoria, gastos):
     gastos_filtrados = filter(lambda gasto: gasto.categoria == categoria, gastos)
 
     for gasto in gastos_filtrados:
-        yield gasto[1]
+        yield gasto.valor
 
 
 def maiores_gastos(gastos):
@@ -50,10 +50,10 @@ def maiores_gastos(gastos):
 
 
 def menores_gastos(gastos):
-    return  _ordenar_valores(gastos)
+    return _ordenar_valores(gastos)
 
 
 def _ordenar_valores(gastos, *, reverse=False, top=5):
-    gastos_ordenados = sorted(gastos, key=lambda gasto: gasto.categoria, reverse=reverse)
+    gastos_ordenados = sorted(gastos, key=lambda gasto: gasto.valor, reverse=reverse)
     return gastos_ordenados[:top]
 

@@ -69,13 +69,13 @@ def _mostra_5_maiores_gastos(gastos):
     maiores_gastos = gerenciador_de_gastos.maiores_gastos(gastos)
     print('Os maiores gastos foram:')
     for gasto in maiores_gastos:
-        print(f'{gasto[0]} - R$ {gasto[1]}')
+        print(f'{gasto.categoria} - R$ {gasto.valor}')
 
 def _mostra_5_menores_gastos(gastos):
     menores_gastos = gerenciador_de_gastos.menores_gastos(gastos)
     print('Os menores gastos foram:')
     for gasto in menores_gastos:
-        print(f'{gasto[0]} - R$ {gasto[1]}')
+        print(f'{gasto.categoria} - R$ {gasto.valor}')
 
 
 if __name__ == '__main__':
