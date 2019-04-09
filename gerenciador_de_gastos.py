@@ -1,6 +1,8 @@
 from collections import Counter
 from functools import reduce
 
+from gastos import Gasto
+
 
 def abre_arquivo(arquivo, encoding='utf-8'):
     with open(arquivo, encoding=encoding) as arquivo:
@@ -10,11 +12,12 @@ def abre_arquivo(arquivo, encoding='utf-8'):
 
 def _extrai_tipo_e_valor(gasto):
     tipo, valor = gasto.split(',')
-    return tipo, float(valor)
+
+    return Gasto(tipo, float(valor))
 
 
 def total_de_gastos(gastos):
-    total = reduce(lambda acumulado, gasto: acumulado + gasto[1], gastos, 0)
+    total = reduce(lambda acumulado, gasto: acumulado + gasto.valor, gastos, 0)
 
     return total
 
@@ -29,28 +32,28 @@ def categorias_mais_frequentes(gastos):
 
 
 def total_de_gastos_da_categoria(categoria, gastos):
-    gastos_filtrados = filter(lambda gasto: gasto[0] == categoria, gastos)
-    total = reduce(lambda acumulado, gasto: acumulado + gasto[1], gastos_filtrados, 0)
+    gastos_filtrados = filter(lambda gasto: gasto.categoria == categoria, gastos)
+    total = reduce(lambda acumulado, gasto: acumulado + gasto.valor, gastos_filtrados, 0)
 
     return total
 
 
 def gastos_da_categoria(categoria, gastos):
-    gastos_filtrados = filter(lambda gasto: gasto[0] == categoria, gastos)
+    gastos_filtrados = filter(lambda gasto: gasto.categoria == categoria, gastos)
 
     for gasto in gastos_filtrados:
         yield gasto[1]
 
 
 def maiores_gastos(gastos):
-    gastos_ordenados = sorted(gastos, key=lambda gasto: gasto[1], reverse=True)
-    return gastos_ordenados[:5]
+    return _ordenar_valores(gastos, reverse=True)
 
 
 def menores_gastos(gastos):
-    gastos_ordenados = sorted(gastos, key=lambda gasto: gasto[1])
-    return gastos_ordenados[:5]
+    return  _ordenar_valores(gastos)
 
 
-
+def _ordenar_valores(gastos, *, reverse=False, top=5):
+    gastos_ordenados = sorted(gastos, key=lambda gasto: gasto.categoria, reverse=reverse)
+    return gastos_ordenados[:top]
 
