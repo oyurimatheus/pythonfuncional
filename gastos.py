@@ -4,7 +4,6 @@ class Gasto:
         self.__categoria = categoria
         self.__valor = valor
 
-
     @property
     def categoria(self):
         return self.__categoria
@@ -12,3 +11,8 @@ class Gasto:
     @property
     def valor(self):
         return self.__valor
+
+    @staticmethod
+    def de_tupla(tupla):
+        categoria, valor = tupla
+        return Gasto(categoria, valor)
