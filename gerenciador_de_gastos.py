@@ -35,9 +35,9 @@ def categorias_mais_frequentes(gastos):
 
 def total_de_gastos_da_categoria(categoria, gastos):
     gastos_filtrados = filter(lambda gasto: gasto.categoria == categoria, gastos)
-    total = reduce(lambda acumulado, gasto: acumulado + gasto.valor, gastos_filtrados, 0)
+    # total = reduce(lambda acumulado, gasto: acumulado + gasto.valor, gastos_filtrados, 0)
 
-    return total
+    return total_de_gastos(gastos_filtrados)
 
 
 def gastos_da_categoria(categoria, gastos):
