@@ -11,6 +11,7 @@ OPÇÕES
 4 - Lista de gastos de uma categoria
 5 - Listar os 5 maiores gastos
 6 - Listar os 5 menores gastos
+7 - Previsão dos gastos do próximo mês
 0 - Sair do programa
 '''
 
@@ -20,7 +21,8 @@ OPÇÕES
         3: mostra_total_de_gasto_da_categoria,
         4: mostra_lista_de_gastos_da_categoria,
         5: mostra_5_maiores_gastos,
-        6: mostra_5_menores_gastos
+        6: mostra_5_menores_gastos,
+        7: previsao_de_gastos
 
     }
 
@@ -28,7 +30,7 @@ OPÇÕES
         print(texto_do_menu)
         opcao = int(input('Selecione uma opção: '))
 
-        while opcao < 0 or opcao > 6:
+        while opcao < 0 or opcao > 7:
             opcao = int(input('Selecione uma opção válida: '))
 
         if opcao == 0:
@@ -77,4 +79,17 @@ def mostra_5_menores_gastos(gastos):
     menores_gastos = gerenciador_de_gastos.menores_gastos(gastos)
     print('Os menores gastos foram:')
     for gasto in menores_gastos:
+        print(f'{gasto.categoria} - R$ {gasto.valor}')
+
+
+def previsao_de_gastos(gastos):
+    lista_de_gastos = [gastos]
+    arquivo = input('Se desejar abrir outro arquivo, digite seu nome, senão pressione <Enter>: ')
+    if arquivo:
+        lista_de_gastos.append(gerenciador_de_gastos.abre_arquivo(arquivo))
+
+    gastos_previstos = gerenciador_de_gastos.prevendo_gastos_de_arquivos(lista_de_gastos)
+
+    print(f'Listando {len(gastos_previstos)} gastos')
+    for gasto in gastos_previstos:
         print(f'{gasto.categoria} - R$ {gasto.valor}')
