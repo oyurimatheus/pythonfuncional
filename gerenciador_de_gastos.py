@@ -1,15 +1,32 @@
 from collections import Counter
 from functools import reduce
 import operator
+import itertools
 
 from gastos import Gasto
 
 
 def abre_arquivo(arquivo, encoding='utf-8'):
     with open(arquivo, encoding=encoding) as arquivo:
-        tuplas = [_extrai_tipo_e_valor(gasto) for gasto in arquivo]
+        tuplas = map(_extrai_tipo_e_valor, arquivo)
 
-        return [Gasto.de_tupla(tupla) for tupla in tuplas]
+        return list(map(Gasto.de_tupla, tuplas))
+
+
+def previsao(gastos):
+    print("calculando previsao...")
+
+    return map(lambda gasto: Gasto(gasto.categoria, gasto.valor + 1), gastos)
+
+
+def abre_arquivos(arquivos):
+    return list(itertools.chain(*map(abre_arquivo, arquivos)))
+
+
+def prevendo_gastos_de_arquivos(gastos_mensais):
+    # gastos_previstos = map(previsao, gastos_mensais)
+    gastos_previstos = (previsao(gastos) for gastos in gastos_mensais)
+    return list(itertools.chain(*gastos_previstos))
 
 
 def _extrai_tipo_e_valor(gasto):
